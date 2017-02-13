@@ -1,0 +1,132 @@
+{% extends "djstripe/base.html" %}
+
+{% block title %}Accounts Dashboard{% endblock title %}
+
+{% block content %}
+{{ block.super }}
+	<div class="full-width-container">
+	<div class="row">
+    <div class="offset-by-one ten columns"><div class="pad-top-20"></div><div class="madras-text-back">
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            {% include "djstripe/includes/_subscription_status.html" %}
+            <font color="white"><h2>Account Information</h2></font>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+            <p>
+                Credit Card on file.
+                <a class="btn btn-info" data-toggle="modal" href="#show-card">Show Card</a>
+            </p>
+        </div>
+        <div class="col-xs-4">
+            <p>
+                <a class="btn btn-primary pull-right" href="{% url 'djstripe:change_card' %}">Change Card</a>
+            </p>
+        </div>
+    </div>
+
+    {% if subscription.is_status_current and not subscription.is_status_temporarily_current %}
+        <p>Next billed on {{ subscription.current_period_end|date }}.</p>
+        <p>You can <a href="{% url 'djstripe:subscribe' %}">change</a> your plan
+        or <a href="{% url 'djstripe:cancel_subscription' %}">cancel</a> your subscription.
+        </p>
+    {% else %}
+        <p>You can <a href="{% url 'djstripe:subscribe' %}">subscribe</a>.</p>
+    {% endif %}
+    <p>Or consult your <a href="{% url 'djstripe:history' %}">payment history</a>.</p>
+
+    {% if plans %}
+        {# Show available plans #}
+        <div class="row">
+            <div class="col-xs-12">
+                <font color="white"><h2>Subscription</h2></font>
+            </div>
+        </div>
+        <font color="white"><div class="row">
+            <div class="col-xs-12">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Plan</th>
+                            <th>Interval</th>
+                            <th>Description</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for plan in plans %}
+                        <tr {% if plan.plan == subscription.plan %}
+                            {% if subscription.is_status_current and not subscription.is_status_temporarily_current and subscription.status != subscription.STATUS_TRIALING %}
+                                class="success"
+                            {% elif subscription.is_status_temporarily_current or subscription.status == subscription.STATUS_TRIALING %}
+                                class="warning"
+                            {% endif %}
+                        {% endif %}>
+                            <td>{{ plan.name }}</td>
+                            <td>{{ plan.interval.title }}ly</td>
+                            <td>{{ plan.description }}</td>
+                            <td>
+                                {% if plan.plan == subscription.plan and subscription.status != subscription.STATUS_CANCELLED %}
+                                    <strong>Your plan</strong>
+                                {% else %}
+                                    Not your plan
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div></font>
+        </div>
+    {% else %}
+        {# No plans so just show payment history #}
+        {% include "djstripe/includes/_history_table.html" %}
+    {% endif %}
+		</div></div></div></div><div class="pad_top-40"></div>
+</div>
+
+  <!-- Modal for showing card -->
+  <div class="modal fade" id="show-card">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"><font color="black">Card on File</font></h4>
+        </div>
+        <div class="modal-body">
+            <p><font color="black"><strong>Type:</strong> {{ customer.card_kind }}</p></font>
+            <p><font color="black"><strong>Last 4 Digits:</strong> {{ customer.card_last_4 }}</p></font>
+            <p><font color="black"><small>For security, your card information is stored on <a href="https://stripe.com">stripe.com</a>.</small></p></font>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+{% endblock content %}
+
+{% block javascript %}
+{{ block.super }}
+{% if plans %}
+    <script>
+        $(function() {
+            $.post("{% url 'djstripe:sync_history' %}", function(data) {
+                $('#history-table').html(data);
+            });
+        });
+    </script>
+{% else %}
+    <script>
+        $(function() {
+            $.post("{% url 'djstripe:sync_history' %}", function(data) {
+                $('#history-table').html(data);
+                $('.in-progress-gif').hide();
+            });
+        });
+    </script>
+{% endif %}
+{% endblock javascript %}

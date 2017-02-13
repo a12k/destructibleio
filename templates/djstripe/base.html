@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+{% block head %}
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<!-- Latest JQuery (IE9+) -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/h2.css' %}" />
+{% endblock %}
+
+
+{% block content %}
+
+{% block javascript %}{% endblock %}
+  <!-- Modal for server update -->
+  <div class="modal fade" id="in-progress">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Server Update In-Progress <img class="pull-right" src="{% static 'img/in-progress.gif' %}" /></h4>
+        </div>
+        <div class="modal-body">
+            <div class="progress">
+                <div class="progress-bar" style="width: 0%;"></div>
+            </div>
+        </div>
+
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+{% endblock %}

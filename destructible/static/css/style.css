@@ -1,0 +1,198 @@
+html {
+    position: relative;
+    height: 100%;
+}
+
+body {
+    background-image: url('https://s3-us-west-2.amazonaws.com/destructiblestatic/static/img/bkg.png');
+    background-repeat: no-repeat; 
+	background-attachment: fixed;
+	margin: 0;
+	height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+	color: white;
+}
+
+main {
+
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.green-rule {
+    background: rgba(0, 47, 73, 0.82);
+    padding: 20px 20px 20px 40px;
+}
+
+.pad-top-40 {
+
+    padding: 40px 0px 0px 0px;
+}
+
+.pad-top-20 {
+    padding: 20px 0px 0px 0px;
+}
+
+.pad-top-10 {
+    padding: 10px 0px 0px 0px;
+}
+
+.header {
+    background-color: rgba(0, 47, 73, 0.82);
+    padding: 20px 20px 20px 40px;
+} /*background-color: #04173f; old background stuff */
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #ffffff;
+    font-size: 36pt;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Montserrat', sans-serif;
+	color: #ffffff;
+}
+
+p {
+    color: #fff;
+}
+
+input, select, textarea{
+    color: #000000;
+}
+
+h2 a {
+    font-family: 'Montserrat', sans-serif;
+	color: #ffffff;
+}
+
+#clockdiv{
+	font-family: sans-serif;
+	color: #fff;
+	display: inline-block;
+	font-weight: 100;
+	text-align: center;
+	font-size: 25px;
+}
+
+#clockdiv > div{
+	padding: 10px;
+	border-radius: 3px;
+	display: inline-block;
+	background: rgba(75, 84, 94, 0.71);
+}
+
+#clockdiv div > span{
+	padding: 15px;
+	border-radius: 3px;
+	display: inline-block;
+	border: 3px solid #3ed6b0;
+}
+
+.full-width-container {
+width: 100%;
+max-width: 1920px;
+clear: both;
+margin: 0 auto;
+}
+
+a {
+  text-align: center;
+  outline: none;
+  display: inline-block;
+  text-decoration: none;
+  color: blue;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
+  -webkit-transition: all ease .3s;
+          transition: all ease .3s;
+}
+
+h2:after {
+  content: '';
+  display: block;
+  width: 10%;
+  padding-top: 5px;
+  border-bottom: 3px solid whitesmoke;
+}
+
+footer {
+	background-color: rgba(0, 47, 73, 0.82);
+	height: 20px;
+	padding: 10px 10px 10px 10px;
+}
+
+
+.Site {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 1 */
+}
+
+.Site-header,
+.Site-footer {
+  flex-shrink: 0; /* 2 */
+}
+.Site-content {
+  flex: 1 0 auto; /* 2 */
+}
+
+@media screen and (min-width: 768px){
+.rwd-break { display: none; }
+}
+
+.top-menu, .top-menu:hover, .top-menu:visited {
+    color: #ffffff;
+    float: right;
+    margin-right: 20px;
+}
+
+.text-box {
+    border: 1px solid black;
+    outline-color: red;
+}
+
+.madras-text-back {
+    background:  rgba(75, 84, 94, 0.71);
+	border: 1px solid #99CED3;
+	padding: 10px;
+}
+
+.alert-text-back {
+    background:  #E3F2FD;
+	padding: 10px;
+}
+
+.madras-text-back1 {
+    background:  rgba(75, 84, 94, 0.71);
+	border: 1px solid #99CED3;
+	padding: 10px;
+}
+
+.red { color: #FF0000; }
+
+.white { color: #fff; }
+
+.narrow-select { 
+width: 100px;
+
+background: rgba(255, 255, 255, .6); 
+}
+
+input[type="text"], textarea {
+
+  background-color : rgba(255, 255, 255, .8); 
+
+}

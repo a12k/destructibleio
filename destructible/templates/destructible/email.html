@@ -1,0 +1,15 @@
+{% extends 'destructible/base.html' %}
+
+{% block content %}
+	<div class="full-width-container">
+	<div class="row">
+    <div class="offset-by-two eight columns"><div class="pad-top-20"></div><div class="madras-text-back">
+<form method="post">
+    {% csrf_token %}
+    {{ contactform }}
+    <div class="form-actions">
+	<input class="button-primary" type="submit" value="Submit" />
+
+    </div>
+</form></div></div></div></div><div class="pad-top-20"></div>
+{% endblock %}

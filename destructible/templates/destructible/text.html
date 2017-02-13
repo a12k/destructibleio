@@ -1,0 +1,38 @@
+{% extends 'destructible/base.html' %}
+
+{% block content %}
+<div class="pad-top-20"></div>
+		<div class="container">
+<div class="row">
+
+	    <div class="twelve columns"><div class="madras-text-back"><div class="pad-top-20"></div>
+
+<div class="row">
+
+	    <div class="twelve columns">
+
+	<center><h5>Self-destructing, human-readable file storage</h5></center></div></div>
+
+<div class="row">
+
+	    <div class="offset-by-two eight columns">
+
+        <form action="{% url "text" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %} <!--security keep here! -->
+  <textarea class="u-full-width" placeholder="Paste something here" id="exampleMessage"></textarea>
+			   <input class="button-primary" type="submit" value="Submit" /></p>
+		</form>
+		</div></div>
+<div class="row">
+
+	    <div class="offset-by-three six columns">
+<p><span class="white">Paste some text, set time to self-destruct. It will be available from a page with a url that's easy to read and say.</span><strong>That's it!</strong>
+</p>
+
+<h6> <p><center><a href="{% url 'moreinfo' %}"><button type="button-primary" input class="button-primary">Looking for more details?</button></a></center></p>  	  
+      </h6>
+		</div></div></div></div></div>
+		</div><!--container end --><div class="pad-top-20"></div>
+
+		
+{% endblock %}

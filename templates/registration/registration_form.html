@@ -1,0 +1,20 @@
+{% extends 'destructible/base.html' %}
+
+{% block content %}
+<div class="pad-top-20"></div>
+<div class="full-width-container"><div class="row">
+
+	    <div class="offset-by-two eight columns"><div class="madras-text-back"><div class="pad-top-20"></div>
+{% if user.is_authenticated %}
+<center><p>you're already registered! </p></center>
+{% else %}
+<div class="pad-top-40"></div>
+<h2>Register for an account:</h2>
+    <form action='' method="POST">
+        {% csrf_token %}
+		{{ form.as_p }}
+        <input class="button-primary" type="submit" value="Sign Up">
+    </form>
+	{% endif %}
+	</div></div></div></div><div class="pad-top-20"></div>
+{% endblock %}

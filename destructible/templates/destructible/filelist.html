@@ -1,0 +1,27 @@
+{% extends 'destructible/base.html' %}
+
+{% block content %}
+
+	<div class="full-width-container">
+	<div class="row">
+    <div class="offset-by-three six columns"><div class="pad-top-20"></div><div class="madras-text-back">
+<p>Current user: {{ user.username}}</p>
+<a href="{% url 'djstripe:account' %}"><button type="button-primary" input class="button-primary">Your Account</button></a>
+<a href="{% url 'password_change' %}"><button type="button-primary" input class="button-primary">Change Password</button></a>
+{% if user_file %}
+<center><h1><strong><u>Your Outstanding Files</u></h1></strong></center>
+<ul>
+{% for UserFile in user_file %}
+<li><h1><strong><a href="/{{ UserFile.hash }}">{{ UserFile.hash }}</a></h1></strong><form action="{% url 'destructible.views.expire_now_console' UserFile.uuid %}" method="post">{% csrf_token %}
+	<input class="button-primary" type="submit" class="btn" value="Self-destruct now" name="mybtn"></form></li>
+{% for docfile in UserFile.attachment_set.select_related %}
+<p><ul><li><a href="{{ docfile.docfile.url }}">{{ docfile }}</a></li></ul></p>
+{{ UserFile.attachment_set.docfile }}
+{% endfor %}
+{% endfor %}
+</ul>
+{% else %}
+<h1><strong> You have no outstanding files</h1></strong>
+{% endif %}
+</div></div></div></div><div class="pad_top-40"></div>
+{% endblock %}

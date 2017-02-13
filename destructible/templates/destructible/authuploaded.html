@@ -1,0 +1,111 @@
+{% extends 'destructible/base.html' %}
+
+{% block content %}
+	{% if user_file.attachment_set.select_related %}
+<div class="full-width-container">
+<div class="row"><div class="pad-top-20"></div>
+
+    <div class="offset-by-two eight columns"><div class="madras-text-back">
+	<p><h4>Here's your upload:{% if user_file.password %} </h4><font color='red'>(This file is password protected)</font></p> {% endif %}</div></div></div>
+	<div class="row">
+
+	    <div class="offset-by-two eight columns"><div class="pad-top-20"></div><div class="madras-text-back">
+				<center><h1><strong>{% for docfile in user_file.attachment_set.select_related %}<li><a href="{{ docfile.docfile.url }}"> {{ docfile.docfile.name|slice:"37:" }}</a>{% endfor %}</strong></h1></center>
+				<p>Your file is available for download at:</p>
+				<h4><p>destructible.io/<strong><br class="rwd-break" />{{ user_file.hash }}</strong></h4></p>
+
+<div class="white"><p>Your File Self-Destructs in:</p></div>
+<center>
+<noscript>Your file was uploaded at {{ user_file.pub_date.isoformat }} and will expire after {{ user_file.expire }} minutes</noscript>
+<!-- Begin Divs for js countdown clock -->
+<div id="clockdiv">
+  <div>
+    <span class="hours"></span>
+    <div class="smalltext">Hours</div>
+  </div>
+  <div>
+    <span class="minutes"></span>
+    <div class="smalltext">Minutes</div>
+  </div>
+  <div>
+    <span class="seconds"></span>
+    <div class="smalltext">Seconds</div>
+  </div>
+</div>
+<!-- End Divs for js countdown clock -->
+</center>
+<p>
+<p><form action="{% url 'destructible.views.expire_now' uuid=user_file.uuid %}" method="post">{% csrf_token %}
+	<input class="button-primary" type="submit" class="btn" value="Self-destruct now instead?" name="mybtn"></form>
+	
+	<form action="{% url 'destructible.views.extend_time' uuid=user_file.uuid %}" method="post">{% csrf_token %}
+	<input class="button-primary" type="submit" class="btn" value="15 more minutes?" name="mybtn"></form>
+	
+	<form action="{% url 'destructible.views.remove_buttons' uuid=user_file.uuid %}" method="post">{% csrf_token %}
+	<input class="button-primary" type="submit" class="btn" value="Toggle Expire/Extend Button for Other Users" name="mybtn">
+
+</form></p>		{% if user.is_authenticated %}
+{% else %}<h6> <p><center><a href="{% url 'moreinfo' %}"><button type="button-primary" input class="button-primary">Like the service? Free registration for more features and options!</button></a></center></p>  	  </h6>{% endif %}
+{% if user_file.no_buttons %}
+<p>You have disabled expire button for other users</p>
+{% else %}
+{% endif %}
+</div>
+
+<div class="pad-top-20"></div>
+  </div></div></div>
+
+	{% else %}
+	<div class="full-width-container">
+	<div class="row">
+    <div class="offset-by-four six columns"><div class="madras-text-back">
+	<p><h2>Your file has expired :(</h2></p>
+	<p><a href="http://127.0.0.1:8000/">Another file perhaps?</a></p>
+	</div></div></div></div>
+    {% endif %}
+
+<!-- js for clock countdown -->
+<script>function getTimeRemaining(endtime) {
+  var t = Date.parse(endtime) - Date.parse(new Date());
+  var seconds = Math.floor((t / 1000) % 60);
+  var minutes = Math.floor((t / 1000 / 60) % 60);
+  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
+  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+  return {
+    'total': t,
+    'days': days,
+    'hours': hours,
+    'minutes': minutes,
+    'seconds': seconds
+  };
+}
+
+function initializeClock(id, endtime) {
+  var clock = document.getElementById(id);
+  var daysSpan = clock.querySelector('.days');
+  var hoursSpan = clock.querySelector('.hours');
+  var minutesSpan = clock.querySelector('.minutes');
+  var secondsSpan = clock.querySelector('.seconds');
+
+  function updateClock() {
+    var t = getTimeRemaining(endtime);
+
+    hoursSpan.innerHTML = (t.hours);
+    minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+    secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+    if (t.total <= 0) {
+		location.reload();
+		clearInterval(timeinterval);
+	}
+  }
+
+  updateClock();
+  var timeinterval = setInterval(updateClock, 1000);
+}
+
+var deadline = new Date(Date.parse('{{ user_file.pub_date.isoformat }}') + ({{ user_file.expire }}*60000));
+
+initializeClock('clockdiv', deadline);</script>
+
+{% endblock %}

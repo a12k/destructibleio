@@ -1,0 +1,9 @@
+*.pyc
+__pycache__
+myvenv
+/static
+.DS_Store
+/media
+local_settings.py
+db.sqlite3
+/venv

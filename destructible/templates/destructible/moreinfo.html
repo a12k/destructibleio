@@ -1,0 +1,119 @@
+{% extends 'destructible/base.html' %}
+
+{% block content %}
+
+		<div class="pad-top-20"></div>
+<div class="container" >
+		<div class="row">
+   <div class="three columns"><div class="madras-text-back"><center><p>Personal</p></center><ul>
+
+  <span class="white"><li>
+   Personal features:
+    <ul>
+      <strong><li>Upload Any File</li>
+      <li>You Get a Human-Readable URL</li>
+      <li>Download as many times as you want</li>
+      <li>The file expires on its own or when you tell it to!</li>
+	    {% if user.is_authenticated %}
+		{% else %}
+            <li>You're already doing this!</li>
+		{% endif %}</strong>
+    </ul>
+  </li>
+</ul>
+</div></div>
+	<div class="three columns"><div class="madras-text-back"> <center><p>Registered</p></center><ul>
+  <li>
+   Registered features:
+    <ul>
+      <strong><li>Set a longer expiration time</li>
+      <li>Choose your own url</li>
+      <li>Disable "self-destruct" button for other users accessing your files</li>
+	  <li>Upload multiple files at once</li>
+	  {% if user.is_authenticated %}
+<li>You're already doing it!</li>
+{% else %}
+		{% endif %}</strong>
+    </ul>
+  </li>
+</ul>
+
+<p><center><a href="{% url 'registration_register' %}"><button type="button-primary" input class="button-primary">Register</button></a></center></p></div></div>
+<div class="three columns"><div class="madras-text-back"> <center><p>Pro</p></center><ul>
+<li>
+   Pro features:
+    <ul>
+      <strong><li>PASSWORD PROTECT Your Download Pages</li>
+      <li>Dashboard With a List of Your Current Links and Time to Expiration</li>
+      <li>Upload Even More Files to One url</li>
+      <li>Set Expiration Up to Five Days</li>
+	  </strong>
+    </ul>
+  </li>
+</ul>
+
+<p><center><a href="{% url 'djstripe:subscribe' %}"><button type="button-primary" input class="button-primary">Go Pro!</button></a></center></p></div></div>
+	<div class="three columns"><div class="madras-text-back"> <center><p>Enterprise</p></center><ul>
+  <li>
+   Enterprise features:
+    <ul>
+      <strong><li>Completely custom feature set</li>
+      <li>Use your company url</li>
+	  <li>Unlimited file size</li>
+	  <li>Unlimited file count</li></strong>
+    </ul>
+  </li>
+</ul>
+Totally custom, contact for more info and pricing. 
+
+<p><center><a href="{% url 'email' %}"><button type="button-primary" input class="button-primary">Enterprise</button></a></center></p></div></div>
+
+</div></div></span>
+
+		<div class="pad-top-20"></div>
+		<div class="container">
+		    	<div class="row">
+
+	    <div class="offset-by-two eight columns"><div class="madras-text-back">
+		<div class="row">
+		<div class="offset-by-two eight columns">
+  <li><h3>Here's some more info:</h3></li>
+    <li><h5>What's this all about?</h5>
+    <ul>
+      <h6><li>This is ideal for quickly sharing a file among local groups, such as in a conference or office environment. The
+human-readable url makes it trivial to speak the link so a person or group can quickly pull it up and get the file. Because you don't need to log in to access the files, it shields your personal
+details on public computers, such as when you need to print a document from a public machine. Simply use your computer or smartphone to upload the document so you can easily pull it up on a public computer, and
+then self-destruct the link when you're done. No need to email yourself the document and log into your personal account on a public computer, or to upload to a another service and fumble
+trying to type in the document download url correctly.</li></h6>
+    </ul>
+  </li>
+  <li><h5>Is there a restriction on file type?</h5>
+    <ul>
+      <h6><li>Unregistered users are restricted to mostly document-type file extensions and smaller files. No illegal or copyrighted items. This isn't meant 
+	  to be a music or video sharing service, so those file types are generally restricted.</li></h6>
+    </ul>
+<li><h5>Is there a file size limit?</h5>
+    <ul>
+      <h6><li>The file limit is 20 megabytes, which is enough for the vast majority of files for which this service was intended. Pro users have a much higher limit.</li></h6>
+    </ul>
+  </li>
+<li><h5>Is my data secure?</h5>
+    <ul>
+      <h6><li>The data is sent via SSL directly to Amazon S3 servers where it is encrypted and stored. However, although there are nearly a billion possible auto-generated urls for the download link and
+	  they generally only last a short time before self-destructing, anyone with the download link can download the file. Pro users do get password protection on the download links, however. No credit card
+	  information touches the servers and it sent directly to Stripe with their Stripe.js module. However, the file is completely deleted from the servers after it expires. Once it's gone, it's gone!  	  
+      </li></h6>
+    </ul>
+  </li>
+  <li><h5>Questions/comments?</h5>
+    <ul>
+      <h6> <p><center><a href="{% url 'email' %}"><button type="button-primary" input class="button-primary">Contact form here!</button></a></center></p>  	  
+      </h6>
+    </ul>
+  </li>
+</ul>
+</div></div></div></div></div><div class="pad-top-20"></div>
+
+
+		</div> <!--container end -->
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'destructible/base.html' %}
+
+{% block content %}
+        <form action="{% url "fileList" %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %} <!--security keep here! -->
+             {% if user.is_authenticated %}
+			<p>{% if is_active %}
+			<p>{{ aform.docfile }}<br></p>
+				<p>
+				{{ eform.password }} password (optional)</p>
+								
+							    <p>
+			    {{ eform.hash }} url (optional)</p><p>
+			    {{ eform.expire }} minutes</p>
+				{% else %}
+				<p>{{ uform.docfile }}<br></p>
+				
+							    <p><h6>Personalized url? (optional)</h6>
+			    {{ form.hash }}</p>
+<p>
+			    {{ form.expire }} minutes</p>
+				{% endif %}
+
+
+            </p>
+			{% else %}
+			    <p>{{ nform.docfile }}<br></p>
+			    <p>
+			    {{ fform.expire }} minutes
+			{% endif %}
+			   <input class="button-primary" type="submit" value="Submit" /></p>
+		</form>
+		
+{% endblock %}

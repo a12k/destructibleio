@@ -1,0 +1,13 @@
+{% extends 'destructible/base.html' %}
+
+{% block content %}
+	<div class="full-width-container">
+	<div class="row">
+    <div class="offset-by-three six columns"><div class="pad-top-20"></div><div class="madras-text-back">
+{% if user.is_authenticated %}
+
+<p>Thanks for registering {{ user.username }}, your activation is complete! </p>
+{% else %}
+<p>Thanks for registering, your activation is complete! </p>
+{% endif %}</div></div></div></div><div class="pad-top-20"></div>
+{% endblock %}

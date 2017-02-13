@@ -1,0 +1,25 @@
+{% extends "destructible/base.html" %}
+
+{% block content %}
+<div class="pad-top-40"></div>
+<div class="full-width-container">
+	<div class="row">
+    <div class="offset-by-three six columns"><div class="madras-text-back">
+	
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+{% csrf_token %}
+{{ form.as_p }}
+
+<input class="button-primary" type="submit" value="Log in" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+<p>Forgot password? <a href="{% url 'password_reset' %}">Reset it</a></p>
+<p>Not registered? <a href="{% url 'registration_register' %}">Register</a></p>
+</div></div></div></div>
+{% endblock %}
+
